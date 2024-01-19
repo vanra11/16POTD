@@ -1,0 +1,79 @@
+all_nodes = set()
+leaf_nodes = set()
+
+# A BST node
+class newNode:
+
+	def __init__(self, data):
+
+		self.data = data
+		self.left = None
+		self.right = None
+
+def insert(node, key):
+	if (node == None):
+		return newNode(key)
+	if (key < node.data):
+		node.left = insert(node.left,
+						key)
+	elif (key > node.data):
+		node.right = insert(node.right,
+							key)
+	return node
+
+# Function to store all node
+# of given binary search tree
+def storeNodes(root):
+
+	global all_nodes
+	global leaf_nodes
+	if (root == None):
+		return
+
+	# store all node of binary
+	# search tree
+	all_nodes.add(root.data)
+
+	# store leaf node in leaf_hash
+	if (root.left == None and
+			root.right == None):
+		leaf_nodes.add(root.data)
+		return
+	storeNodes(root. left)
+	storeNodes(root.right)
+
+def isDeadEnd(root):
+
+	global all_nodes
+	global leaf_nodes
+	if (root == None):
+		return False
+
+	all_nodes.add(0)
+
+	storeNodes(root)
+
+	for x in leaf_nodes:
+
+		if ((x + 1) in all_nodes and
+				(x - 1) in all_nodes):
+			return True
+
+	return False
+
+if __name__ == '__main__':
+
+
+	root = None
+	root = insert(root, 8)
+	root = insert(root, 5)
+	root = insert(root, 2)
+	root = insert(root, 3)
+	root = insert(root, 7)
+	root = insert(root, 11)
+	root = insert(root, 4)
+
+	if(isDeadEnd(root) == True):
+		print("Yes")
+	else:
+		print("No")
