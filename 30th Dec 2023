@@ -1,0 +1,50 @@
+import java.io.*;
+import java.util.*;
+
+class Votes
+{
+    public static void main (String[] args)
+    {
+        
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        
+        while(t-- > 0)
+        {
+            int n = sc.nextInt();
+            String arr[] = new String[n];
+            
+            for(int i = 0; i < n; i++)
+                arr[i] = sc.next();
+            
+            Solution obj = new Solution();    
+            String result[] = obj.winner(arr, n);
+            System.out.println(result[0] + " " + result[1]);
+            
+           
+        }
+        
+    }
+}
+class Solution
+{
+    //Function to return the name of candidate that received maximum votes.
+    public static String[] winner(String arr[], int n)
+    {
+        // add your code
+        int max=Integer.MIN_VALUE;
+        String candidate="";
+        HashMap<String,Integer> map= new HashMap<>();
+        for(String c: arr)
+        {
+            map.put(c,map.getOrDefault(c,0)+1);
+            if(map.get(c)>max||(map.get(c)==max&&candidate.compareTo(c)>=1))
+            {
+                candidate=c;
+                max=map.get(c);
+            }
+        }
+        String [] arr1={candidate, String.valueOf(max)};
+        return arr1;
+    }
+}
