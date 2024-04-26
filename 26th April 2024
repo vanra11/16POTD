@@ -1,0 +1,52 @@
+#User function Template for python3
+
+class Solution:
+	def FindExitPoint(self, n, m, matrix):
+		# Code here
+		directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]  # right, down, left, up
+        dir_index = 0
+        x, y = 0, 0
+
+        # Traverse the matrix
+        while 0 <= x < n and 0 <= y < m:
+            # If current cell is 1, turn right and mark it as 0
+            if matrix[x][y] == 1:
+                matrix[x][y] = 0
+                dir_index = (dir_index + 1) % 4
+            # Move to the next cell
+            dx, dy = directions[dir_index]
+            nx, ny = x + dx, y + dy
+            x, y = nx, ny
+
+        # Return the exit point
+        if x < 0:
+            x = 0
+        elif x >= n:
+            x = n - 1
+        if y < 0:
+            y = 0
+        elif y >= m:
+            y = m - 1
+        return [x, y]
+
+
+#{ 
+ # Driver Code Starts
+#Initial Template for Python 3
+
+if __name__ == '__main__':
+    T = int(input())
+    for i in range(T):
+        n, m = input().split()
+        n = int(n)
+        m = int(m)
+        matrix = []
+        for _ in range(n):
+            matrix.append(list(map(int, input().split())))
+        ob = Solution()
+        ans = ob.FindExitPoint(n, m, matrix)
+        for _ in ans:
+            print(_, end=" ")
+        print()
+
+# } Driver Code Ends
