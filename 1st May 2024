@@ -1,0 +1,120 @@
+//{ Driver Code Starts
+/*package whatever //do not write package name here */
+
+import java.io.*;
+import java.util.*;
+
+class Node {
+    char data;
+    Node next;
+    
+    public Node(char data){
+        this.data = data;
+        next = null;
+    }
+}
+
+class GFG {
+	public static void main (String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int t = sc.nextInt();
+		while(t-- > 0){
+		    int n = sc.nextInt();
+		    Node head = null, tail = null;
+		    
+		    char head_c = sc.next().charAt(0);
+		    head = new Node(head_c);
+		    tail = head;
+		    
+		    while(n-- > 1){
+		        tail.next = new Node(sc.next().charAt(0));
+		        tail = tail.next;
+		    }
+		    
+		    Solution obj = new Solution();
+		    //show(head);
+		    show(obj.arrangeCV(head));
+		    
+		}
+	}
+	
+	public static void po(Object o){
+	    System.out.println(o);
+	}
+	
+	public static void show(Node head){
+        while(head != null){
+            System.out.print(head.data+" ");
+            head = head.next;
+        }
+        System.out.println();
+    }
+}
+
+// } Driver Code Ends
+
+
+/*
+Structure of node class is:
+class Node {
+    char data;
+    Node next;
+    
+    public Node(char data){
+        this.data = data;
+        next = null;
+    }
+}
+*/
+class Solution {
+    
+    public Node arrangeCV(Node head){
+        //write code here and return the head of changed linked list
+        if (head == null || head.next == null) // Handling edge cases
+            return head;
+        
+        // Initialize pointers for vowels and consonants
+        Node vowelHead = null, vowelTail = null;
+        Node consonantHead = null, consonantTail = null;
+        
+        // Iterate through the linked list
+        while (head != null) {
+            char ch = head.data;
+            Node nextNode = head.next; // Store the next node
+            
+            // Check if the character is a vowel
+            if (isVowel(ch)) {
+                if (vowelHead == null) {
+                    vowelHead = head;
+                    vowelTail = head;
+                } else {
+                    vowelTail.next = head;
+                    vowelTail = head;
+                }
+            } else {
+                if (consonantHead == null) {
+                    consonantHead = head;
+                    consonantTail = head;
+                } else {
+                    consonantTail.next = head;
+                    consonantTail = head;
+                }
+            }
+            head.next = null; // Break the link with the original list
+            head = nextNode; // Move to the next node
+        }
+        
+        // Concatenate the vowel list with the consonant list
+        if (vowelHead == null) // If there are no vowels
+            return consonantHead;
+        vowelTail.next = consonantHead;
+        
+        return vowelHead;
+    }
+    
+    // Function to check if a character is a vowel
+    private boolean isVowel(char ch) {
+        return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
+        
+    }
+}
