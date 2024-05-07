@@ -1,0 +1,20 @@
+res=[]
+    if not root : return  res
+    def fun(root):
+        nonlocal res
+        q= deque()
+        q.append(root)
+        while len(q)!= 0 :
+            curr=[]
+            for i in range(0,len(q)):
+                t= q.popleft()
+                curr.append(t.data)
+                if t.left : q.append(t.left)
+                if t.right : q.append(t.right)
+                
+            for i in range(len(res)):
+                curr.append(res[i])
+            res= curr
+        
+    fun(root)
+    return res
