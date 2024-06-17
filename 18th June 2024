@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+class Solution {
+  public:
+    int rectanglesInCircle(int R) {
+        int l=1,b=1,cnt=0;
+        // cin>>r;
+        while(l*l+b*b<=4*R*R){
+            while(l*l+b*b<=4*R*R){
+                cnt++;
+                b++;
+            }
+            l++;
+            b=1;
+        }
+        return cnt;
+    }
+};
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        Solution ob;
+        int ans = ob.rectanglesInCircle(n);
+        cout << ans << "\n";
+    }
+}
