@@ -1,0 +1,51 @@
+import java.util.*;
+
+class SmallestNum {
+    public static void main(String args[]) {
+        Scanner sc = new Scanner(System.in);
+        int tc = sc.nextInt();
+
+        while (tc-- > 0) {
+            int s = sc.nextInt();
+            int d = sc.nextInt();
+
+            Solution obj = new Solution();
+            String res = obj.smallestNumber(s, d);
+
+            System.out.println(res);
+        }
+    }
+}
+
+
+class Solution {
+    public String smallestNumber(int s, int d) {
+        // code here
+        if(d==1&&s<10)
+        {
+            return s+"";
+        }
+        if(d==1&&s>10)
+            return "-1";
+        int  dig = (int)Math.pow(10,d-1);
+        int small = (int)Math.pow(10,d)-1;
+        int sum=0;
+        while(sum!=s)
+        {
+            sum=0;
+            int temp = dig;
+            while(dig>0)
+            {
+                int v = dig%10;
+                sum+=v;
+                dig/=10;
+                if(s==sum) return temp+"";
+            }
+            dig = temp;
+            dig++;
+            if(dig>small) break;
+        }
+        
+    return "-1";
+    }
+}
