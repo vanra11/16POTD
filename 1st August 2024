@@ -1,0 +1,57 @@
+import java.io.*;
+import java.util.*;
+
+class Spiral {
+    public static void main(String args[]) throws IOException {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+
+        while (t-- > 0) {
+            int r = sc.nextInt();
+            int c = sc.nextInt();
+
+            int matrix[][] = new int[r][c];
+
+            for (int i = 0; i < r; i++) {
+                for (int j = 0; j < c; j++) matrix[i][j] = sc.nextInt();
+            }
+            Solution ob = new Solution();
+            ArrayList<Integer> ans = ob.spirallyTraverse(matrix);
+            for (Integer val : ans) System.out.print(val + " ");
+            System.out.println();
+        }
+    }
+}
+
+class Solution {
+    // Function to return a list of integers denoting spiral traversal of matrix.
+    public ArrayList<Integer> spirallyTraverse(int mat[][]) {
+        // code here
+        ArrayList<Integer> list = new ArrayList<>();
+        int top = 0, bottom = mat.length-1;
+        int left = 0, right = mat[0].length-1;
+        while(true){
+            for(int c=left; c<=right; c++){
+                list.add(mat[top][c]);
+            }
+            top++;
+            if(top > bottom) break;
+            for(int r=top; r<=bottom; r++){
+                list.add(mat[r][right]);
+            }
+            right--;
+            if(right < left) break;
+            for(int c=right; c>=left; c--){
+                list.add(mat[bottom][c]);
+            }
+            bottom--;
+            if(bottom < top) break;
+            for(int r=bottom; r>=top; r--){
+                list.add(mat[r][left]);
+            }
+            left++;
+            if(left > right) break;
+        }
+        return list;
+    }
+}
